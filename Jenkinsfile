@@ -2,24 +2,27 @@ pipeline {
     agent any
     environment {
         CI = 'true'
+        PATH = "C:\\WINDOWS\\SYSTEM32"
     }
     stages {
         stage('Build') {
             steps {
-                call npm install
+                bat label: '', script: 'call index.html'     
             }
         }
-        stage('Test') {
+        
+         stage('Test') {
             steps {
-                call test.sh
+                bat label: '', script: 'call test.sh' 
             }
         }
         stage('Deliver') {
             steps {
-                call deliver.sh
+                bat label: '', script: 'call deliver.sh' 
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                call kill.sh
+                bat label: '', script: 'call kill.sh' 
             }
         }
+       
     }
 }
